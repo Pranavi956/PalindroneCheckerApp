@@ -20,18 +20,28 @@ public class PalindromeCheckerApp {
         System.out.println(APP_VERSION);
         System.out.println("====================================");
 
-        // Original String (Hardcoded)
-        String original = "level";
+        // Original string
+        String original = "racecar";
 
-        // Reverse string using for loop
-        String reversed = "";
+        // Convert string to character array
+        char[] chars = original.toCharArray();
 
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);   // String concatenation
+        // Two-pointer approach
+        int start = 0;
+        int end = chars.length - 1;
+        boolean isPalindrome = true;
+
+        while (start < end) {
+            if (chars[start] != chars[end]) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
         }
 
-        // Compare original and reversed using equals()
-        if (original.equals(reversed)) {
+        // Display result
+        if (isPalindrome) {
             System.out.println("The string \"" + original + "\" is a Palindrome.");
         } else {
             System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
@@ -40,4 +50,5 @@ public class PalindromeCheckerApp {
         // Program exits
         System.out.println("Program finished.");
     }
+
 }
