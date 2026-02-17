@@ -23,21 +23,24 @@ public class PalindromeCheckerApp {
         // Original string
         String original = "racecar";
 
-        // Convert string to character array
-        char[] chars = original.toCharArray();
+        // Create Stack
+        java.util.Stack<Character> stack = new java.util.Stack<>();
 
-        // Two-pointer approach
-        int start = 0;
-        int end = chars.length - 1;
+        // Push characters into stack
+        for (int i = 0; i < original.length(); i++) {
+            stack.push(original.charAt(i));
+        }
+
+        // Pop and compare
         boolean isPalindrome = true;
 
-        while (start < end) {
-            if (chars[start] != chars[end]) {
+        for (int i = 0; i < original.length(); i++) {
+            char poppedChar = stack.pop();
+
+            if (original.charAt(i) != poppedChar) {
                 isPalindrome = false;
                 break;
             }
-            start++;
-            end--;
         }
 
         // Display result
