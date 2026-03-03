@@ -1,39 +1,27 @@
 /**
- * UC10: Case-Insensitive & Space-Ignored Palindrome
+ * UC11: Object-Oriented Palindrome Service
  * Palindrome Checker Application
  */
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC10.
+     * Application entry point for UC11.
      */
     public static void main(String[] args) {
 
         System.out.println("====================================");
         System.out.println("Welcome to Palindrome Checker Application");
-        System.out.println("Version 10.0");
+        System.out.println("Version 11.0");
         System.out.println("====================================");
 
-        String original = "A man a plan a canal Panama";
+        String original = "racecar";
 
-        // Step 1: Normalize string
-        // Remove spaces and non-alphanumeric characters, convert to lowercase
-        String normalized = original.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        // Create service object
+        PalindromeService service = new PalindromeService();
 
-        boolean isPalindrome = true;
+        // Call encapsulated logic
+        boolean isPalindrome = service.checkPalindrome(original);
 
-        // Step 2: Compare characters from both ends
-        for (int i = 0; i < normalized.length() / 2; i++) {
-
-            if (normalized.charAt(i) !=
-                    normalized.charAt(normalized.length() - 1 - i)) {
-
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        // Display result
         if (isPalindrome) {
             System.out.println("The string \"" + original + "\" is a Palindrome.");
         } else {
@@ -41,5 +29,37 @@ public class PalindromeCheckerApp {
         }
 
         System.out.println("Program finished.");
+    }
+}
+
+
+/**
+ * Service class that contains palindrome logic.
+ */
+class PalindromeService {
+
+    /**
+     * Checks whether the input string is a palindrome.
+     *
+     * @param input Input string
+     * @return true if palindrome, false otherwise
+     */
+    public boolean checkPalindrome(String input) {
+
+        int start = 0;
+        int end = input.length() - 1;
+
+        // Compare characters moving inward
+        while (start < end) {
+
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+
+            start++;
+            end--;
+        }
+
+        return true;
     }
 }
