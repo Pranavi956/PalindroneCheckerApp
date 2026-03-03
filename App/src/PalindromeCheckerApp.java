@@ -1,81 +1,24 @@
 /**
- * UC8: Linked List Based Palindrome Checker
+ * UC9: Recursive Palindrome Checker
  * Palindrome Checker Application
  */
 public class PalindromeCheckerApp {
 
-    // Node class for Singly Linked List
-    static class Node {
-        char data;
-        Node next;
-
-        Node(char data) {
-            this.data = data;
-            this.next = null;
-        }
-    }
-
+    /**
+     * Application entry point for UC9.
+     */
     public static void main(String[] args) {
 
         System.out.println("====================================");
         System.out.println("Welcome to Palindrome Checker Application");
-        System.out.println("Version 8.0");
+        System.out.println("Version 9.0");
         System.out.println("====================================");
 
         String original = "racecar";
 
-        // Convert string to linked list
-        Node head = null;
-        Node tail = null;
+        // Call recursive method
+        boolean isPalindrome = check(original, 0, original.length() - 1);
 
-        for (int i = 0; i < original.length(); i++) {
-            Node newNode = new Node(original.charAt(i));
-
-            if (head == null) {
-                head = newNode;
-                tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
-            }
-        }
-
-        // Step 1: Find middle using Fast & Slow pointer
-        Node slow = head;
-        Node fast = head;
-
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-
-        // Step 2: Reverse second half
-        Node prev = null;
-        Node current = slow;
-
-        while (current != null) {
-            Node nextNode = current.next;
-            current.next = prev;
-            prev = current;
-            current = nextNode;
-        }
-
-        // Step 3: Compare first half and reversed second half
-        Node firstHalf = head;
-        Node secondHalf = prev;
-
-        boolean isPalindrome = true;
-
-        while (secondHalf != null) {
-            if (firstHalf.data != secondHalf.data) {
-                isPalindrome = false;
-                break;
-            }
-            firstHalf = firstHalf.next;
-            secondHalf = secondHalf.next;
-        }
-
-        // Display result
         if (isPalindrome) {
             System.out.println("The string \"" + original + "\" is a Palindrome.");
         } else {
@@ -83,5 +26,29 @@ public class PalindromeCheckerApp {
         }
 
         System.out.println("Program finished.");
+    }
+
+    /**
+     * Recursively checks whether a string is a palindrome.
+     *
+     * @param s     Input string
+     * @param start Starting index
+     * @param end   Ending index
+     * @return true if palindrome, otherwise false
+     */
+    private static boolean check(String s, int start, int end) {
+
+        // Base Condition: If pointers cross or meet
+        if (start >= end) {
+            return true;
+        }
+
+        // If characters don't match
+        if (s.charAt(start) != s.charAt(end)) {
+            return false;
+        }
+
+        // Recursive call (move inward)
+        return check(s, start + 1, end - 1);
     }
 }
