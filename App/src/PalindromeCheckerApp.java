@@ -1,24 +1,39 @@
 /**
- * UC9: Recursive Palindrome Checker
+ * UC10: Case-Insensitive & Space-Ignored Palindrome
  * Palindrome Checker Application
  */
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC9.
+     * Application entry point for UC10.
      */
     public static void main(String[] args) {
 
         System.out.println("====================================");
         System.out.println("Welcome to Palindrome Checker Application");
-        System.out.println("Version 9.0");
+        System.out.println("Version 10.0");
         System.out.println("====================================");
 
-        String original = "racecar";
+        String original = "A man a plan a canal Panama";
 
-        // Call recursive method
-        boolean isPalindrome = check(original, 0, original.length() - 1);
+        // Step 1: Normalize string
+        // Remove spaces and non-alphanumeric characters, convert to lowercase
+        String normalized = original.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
+        boolean isPalindrome = true;
+
+        // Step 2: Compare characters from both ends
+        for (int i = 0; i < normalized.length() / 2; i++) {
+
+            if (normalized.charAt(i) !=
+                    normalized.charAt(normalized.length() - 1 - i)) {
+
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        // Display result
         if (isPalindrome) {
             System.out.println("The string \"" + original + "\" is a Palindrome.");
         } else {
@@ -26,29 +41,5 @@ public class PalindromeCheckerApp {
         }
 
         System.out.println("Program finished.");
-    }
-
-    /**
-     * Recursively checks whether a string is a palindrome.
-     *
-     * @param s     Input string
-     * @param start Starting index
-     * @param end   Ending index
-     * @return true if palindrome, otherwise false
-     */
-    private static boolean check(String s, int start, int end) {
-
-        // Base Condition: If pointers cross or meet
-        if (start >= end) {
-            return true;
-        }
-
-        // If characters don't match
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call (move inward)
-        return check(s, start + 1, end - 1);
     }
 }
