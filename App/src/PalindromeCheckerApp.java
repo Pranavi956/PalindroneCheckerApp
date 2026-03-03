@@ -1,57 +1,48 @@
-/**
- * UC1: Application Entry & Welcome Message
- * Palindrome Checker Application
- */
-public class PalindromeCheckerApp {
+public static void main(String[] args) {
 
-    // Application constants
-    static final String APP_NAME = "Palindrome Checker Application";
-    static final String APP_VERSION = "Version 1.0";
+    // Program starts
+    System.out.println("====================================");
+    System.out.println("Welcome to " + APP_NAME);
+    System.out.println(APP_VERSION);
+    System.out.println("====================================");
 
-    /**
-     * Main Method - Entry point of the Java Application
-     * JVM invokes this method without creating an object (static keyword)
-     */
-    public static void main(String[] args) {
+    // Original string
+    String original = "racecar";
 
-        // Program starts
-        System.out.println("====================================");
-        System.out.println("Welcome to " + APP_NAME);
-        System.out.println(APP_VERSION);
-        System.out.println("====================================");
+    // Create Stack (LIFO)
+    java.util.Stack<Character> stack = new java.util.Stack<>();
 
-        // Original string
-        String original = "racecar";
+    // Create Queue (FIFO)
+    java.util.Queue<Character> queue = new java.util.LinkedList<>();
 
-        // Create Stack
-        java.util.Stack<Character> stack = new java.util.Stack<>();
-
-        // Push characters into stack
-        for (int i = 0; i < original.length(); i++) {
-            stack.push(original.charAt(i));
-        }
-
-        // Pop and compare
-        boolean isPalindrome = true;
-
-        for (int i = 0; i < original.length(); i++) {
-            char poppedChar = stack.pop();
-
-            if (original.charAt(i) != poppedChar) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        // Display result
-        if (isPalindrome) {
-            System.out.println("The string \"" + original + "\" is a Palindrome.");
-        } else {
-            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
-        }
-
-        // Program exits
-        System.out.println("Program finished.");
+    // Insert characters into both Stack and Queue
+    for (int i = 0; i < original.length(); i++) {
+        char ch = original.charAt(i);
+        stack.push(ch);     // LIFO
+        queue.add(ch);      // FIFO
     }
 
+    // Compare elements
+    boolean isPalindrome = true;
+
+    while (!stack.isEmpty() && !queue.isEmpty()) {
+
+        char fromStack = stack.pop();      // Last In First Out
+        char fromQueue = queue.remove();  // First In First Out
+
+        if (fromStack != fromQueue) {
+            isPalindrome = false;
+            break;
+        }
+    }
+
+    // Display result
+    if (isPalindrome) {
+        System.out.println("The string \"" + original + "\" is a Palindrome.");
+    } else {
+        System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
+    }
+
+    // Program exits
+    System.out.println("Program finished.");
 }
