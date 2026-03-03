@@ -1,48 +1,49 @@
-public static void main(String[] args) {
+/**
+ * UC7: Deque Based Optimized Palindrome Checker
+ * Palindrome Checker Application
+ */
+public class PalindromeCheckerApp {
 
-    // Program starts
-    System.out.println("====================================");
-    System.out.println("Welcome to " + APP_NAME);
-    System.out.println(APP_VERSION);
-    System.out.println("====================================");
+    /**
+     * Application entry point for UC7.
+     */
+    public static void main(String[] args) {
 
-    // Original string
-    String original = "racecar";
+        System.out.println("====================================");
+        System.out.println("Welcome to Palindrome Checker Application");
+        System.out.println("Version 7.0");
+        System.out.println("====================================");
 
-    // Create Stack (LIFO)
-    java.util.Stack<Character> stack = new java.util.Stack<>();
+        String original = "racecar";
 
-    // Create Queue (FIFO)
-    java.util.Queue<Character> queue = new java.util.LinkedList<>();
+        // Create Deque (Double Ended Queue)
+        java.util.Deque<Character> deque = new java.util.LinkedList<>();
 
-    // Insert characters into both Stack and Queue
-    for (int i = 0; i < original.length(); i++) {
-        char ch = original.charAt(i);
-        stack.push(ch);     // LIFO
-        queue.add(ch);      // FIFO
-    }
-
-    // Compare elements
-    boolean isPalindrome = true;
-
-    while (!stack.isEmpty() && !queue.isEmpty()) {
-
-        char fromStack = stack.pop();      // Last In First Out
-        char fromQueue = queue.remove();  // First In First Out
-
-        if (fromStack != fromQueue) {
-            isPalindrome = false;
-            break;
+        // Insert characters into deque
+        for (int i = 0; i < original.length(); i++) {
+            deque.addLast(original.charAt(i));
         }
-    }
 
-    // Display result
-    if (isPalindrome) {
-        System.out.println("The string \"" + original + "\" is a Palindrome.");
-    } else {
-        System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
-    }
+        boolean isPalindrome = true;
 
-    // Program exits
-    System.out.println("Program finished.");
+        // Compare front and rear elements
+        while (deque.size() > 1) {
+
+            char frontChar = deque.removeFirst();
+            char rearChar = deque.removeLast();
+
+            if (frontChar != rearChar) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println("The string \"" + original + "\" is a Palindrome.");
+        } else {
+            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
+        }
+
+        System.out.println("Program finished.");
+    }
 }
