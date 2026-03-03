@@ -1,35 +1,46 @@
 /**
- * UC12: Strategy Pattern for Palindrome Algorithms
+ * UC13: Performance Comparison
  * Palindrome Checker Application
  */
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC12.
+     * Application entry point for UC13.
      */
     public static void main(String[] args) {
 
         System.out.println("====================================");
         System.out.println("Welcome to Palindrome Checker Application");
-        System.out.println("Version 12.0");
+        System.out.println("Version 13.0");
         System.out.println("====================================");
 
-        String original = "racecar";
+        String input = "racecar";
 
-        // Choose strategy at runtime
-        PalindromeStrategy strategy;
+        // Strategy 1: Stack
+        PalindromeStrategy stackStrategy = new StackStrategy();
 
-        // Change this to test different strategies
-        strategy = new StackStrategy();
-        // strategy = new DequeStrategy();
+        long startTime = System.nanoTime();
+        boolean result1 = stackStrategy.check(input);
+        long endTime = System.nanoTime();
 
-        boolean isPalindrome = strategy.check(original);
+        long stackDuration = endTime - startTime;
 
-        if (isPalindrome) {
-            System.out.println("The string \"" + original + "\" is a Palindrome.");
-        } else {
-            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
-        }
+        // Strategy 2: Deque
+        PalindromeStrategy dequeStrategy = new DequeStrategy();
+
+        startTime = System.nanoTime();
+        boolean result2 = dequeStrategy.check(input);
+        endTime = System.nanoTime();
+
+        long dequeDuration = endTime - startTime;
+
+        // Display results
+        System.out.println("Input: " + input);
+        System.out.println("Stack Strategy Result: " + result1);
+        System.out.println("Stack Execution Time (ns): " + stackDuration);
+
+        System.out.println("Deque Strategy Result: " + result2);
+        System.out.println("Deque Execution Time (ns): " + dequeDuration);
 
         System.out.println("Program finished.");
     }
@@ -37,8 +48,7 @@ public class PalindromeCheckerApp {
 
 
 /**
- * INTERFACE – PalindromeStrategy
- * Defines contract for all palindrome algorithms.
+ * Strategy Interface
  */
 interface PalindromeStrategy {
     boolean check(String input);
@@ -46,8 +56,7 @@ interface PalindromeStrategy {
 
 
 /**
- * CLASS – StackStrategy
- * Uses Stack-based palindrome checking.
+ * Stack-Based Strategy
  */
 class StackStrategy implements PalindromeStrategy {
 
@@ -71,8 +80,7 @@ class StackStrategy implements PalindromeStrategy {
 
 
 /**
- * CLASS – DequeStrategy
- * Uses Deque-based palindrome checking.
+ * Deque-Based Strategy
  */
 class DequeStrategy implements PalindromeStrategy {
 
